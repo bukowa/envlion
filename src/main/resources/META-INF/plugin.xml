@@ -6,14 +6,35 @@
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.clion</depends>
+    <depends>com.intellij.modules.cmake</depends>
+    <depends>com.intellij.modules.clion.cmake</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.bukowa.envlion.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <cmake.runnerStep implementation="com.github.bukowa.envlion.listeners.MyCMakeRunnerStep"/>
     </extensions>
+    <projectListeners>
+<!--        <listener-->
+<!--                topic="com.jetbrains.cidr.cpp.toolchains.CPPToolchainsListener"-->
+<!--                class="com.github.bukowa.envlion.listeners.MyCPPToolchainsListener"-->
+<!--        />-->
+<!--        <listener-->
+<!--                topic="com.jetbrains.cidr.cpp.toolchains.DevEnvironmentChecker"-->
+<!--                class="com.github.bukowa.envlion.listeners.MyDevEnvironmentChecker"-->
+<!--        />-->
 
-    <applicationListeners>
-        <listener class="com.github.bukowa.envlion.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
+<!--        <listener-->
+<!--                topic="com.jetbrains.cidr.cpp.cmake.CMakeSettingsListener"-->
+<!--                class="com.github.bukowa.envlion.listeners.MyCMakeSettingsListener"-->
+<!--        />-->
+        <listener
+                topic="com.jetbrains.cidr.cpp.cmake.workspace.CMakeWorkspaceListener"
+                class="com.github.bukowa.envlion.listeners.MyCMakeWorkspaceListener"
+        />
+
+        <listener topic="com.jetbrains.cidr.execution.build.CidrBuildListener"
+                  class="com.github.bukowa.envlion.listeners.MyCidrBuildListener"/>
+    </projectListeners>
+
 </idea-plugin>
